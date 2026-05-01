@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useStore } from '../lib/store';
 import { getSocket } from '../lib/socket';
 import {
@@ -35,14 +35,6 @@ export function HostSetup() {
     Array.from({ length: FAST_MONEY_QUESTION_COUNT }, emptyFastMoneyQuestion),
   );
   const [savedAt, setSavedAt] = useState<string | null>(null);
-
-  useEffect(() => {
-    const pack = loadPack();
-    if (pack) {
-      if (pack.rounds?.length) setRounds(pack.rounds);
-      if (pack.fastMoney?.length) setFastMoney(pack.fastMoney);
-    }
-  }, []);
 
   const numPlayers = state?.publicState.players.length ?? 0;
 
@@ -117,7 +109,10 @@ export function HostSetup() {
           </div>
         </div>
         <div className="flex gap-2 flex-wrap">
-          <button onClick={saveLocally} className="btn-secondary">
+          <button
+            onClick={saveLocally}
+            className="btn bg-yellow-400 text-feud-board hover:bg-yellow-500"
+          >
             Save pack
           </button>
           <button onClick={loadLocally} className="btn-secondary">
