@@ -29,7 +29,7 @@ function savePack(pack: Pack): void {
 }
 
 export function HostSetup() {
-  const { state, roomCode } = useStore();
+  const { state, roomCode, setRoute } = useStore();
   const [rounds, setRounds] = useState<Question[]>([emptyQuestion()]);
   const [fastMoney, setFastMoney] = useState<FastMoneyQuestion[]>(() =>
     Array.from({ length: FAST_MONEY_QUESTION_COUNT }, emptyFastMoneyQuestion),
@@ -62,6 +62,7 @@ export function HostSetup() {
 
   function publish() {
     getSocket().emit('host:saveQuestions', { rounds, fastMoneyQuestions: fastMoney });
+    setRoute({ name: 'in-game' });
   }
 
   function saveLocally() {
